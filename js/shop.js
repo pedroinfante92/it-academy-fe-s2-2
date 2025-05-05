@@ -74,6 +74,20 @@ var cart = [];
 
 var total = 0;
 
+function uploadCounter() {
+
+    counter = 0
+
+    for(let i = 0; i < cart.length; i++) {
+        counter += cart[i].quantity
+    }
+
+    console.log(counter)
+
+    document.getElementById('count_product').innerHTML = counter
+}
+
+
 // Exercise 1
 
     // 1. Loop for to the array products to get the item to add to cart
@@ -105,6 +119,8 @@ function buy(id) {
                 console.log(cart)
             }
 
+            uploadCounter()
+
             return
         }
     }
@@ -135,6 +151,7 @@ function cleanCart() {
         cart.pop()
     }
 
+    uploadCounter()
     console.log(cart)
 }
 
