@@ -146,6 +146,7 @@ function cleanCart() {
         totalPrice.removeChild(totalPrice.firstChild);
     }
     
+    totalPrice.innerHTML = '0.00'
     
     for (let i = cart.length; i > 0 ; i--) {
         cart.pop()
