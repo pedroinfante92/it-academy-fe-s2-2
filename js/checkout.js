@@ -1,6 +1,8 @@
 
 // Exercise 6
 function validate() {
+	
+	/*
 	var error = 0
 	// Get the input fields
 	var fName = document.getElementById("fName")
@@ -19,8 +21,6 @@ function validate() {
 	var errorPassword = document.getElementById("errorPassword")
 	
 	// Validate fields entered by the user: name, phone, password, and email
-
-	const onlyLetters = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
 
 	if(fName.value == "" || fName.value < 3 || /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(fName)){
 		error++
@@ -45,11 +45,27 @@ function validate() {
 	if(fPhone.value == "" || fPhone.value < 3 || /^\d+$/.test(fPhone)){
 		error++
 	}
-	 
+	
+	
 	if(error > 0){
 		alert("Error")
 	}else{
 		alert("OK")
 	}
+	*/
+
+	var forms = document.querySelectorAll('.needs-validation')
+  
+	Array.prototype.slice.call(forms)
+	  .forEach(function (form) {
+		form.addEventListener('submit', function (event) {
+		  if (!form.checkValidity()) {
+			event.preventDefault()
+			event.stopPropagation()
+		  }
+  
+		  form.classList.add('was-validated')
+		}, false)
+	  })
 
 }
