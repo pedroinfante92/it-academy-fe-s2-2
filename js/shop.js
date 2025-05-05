@@ -147,7 +147,7 @@ function cleanCart() {
     }
     
     totalPrice.innerHTML = '0.00'
-    
+
     for (let i = cart.length; i > 0 ; i--) {
         cart.pop()
     }
@@ -217,35 +217,48 @@ function printCart() {
         const price = cart[i].price
         const quantity = cart[i].quantity
         const totalWithDiscount = cart[i].price * cart[i].quantity - discount
-
+        
         const tableRow = document.createElement("tr")
         const tableHeader = document.createElement("th")
-        const productElement = document.createElement("td")
         const priceElement = document.createElement("td")
         const quantityElement = document.createElement("td")
         const totalElement = document.createElement("td")
+        const closeElement = document.createElement("td")
 
         const productText = document.createTextNode(product)
         const priceText = document.createTextNode(`${price.toFixed(2)}€`)
         const quantityText = document.createTextNode(quantity)
         const totalText = document.createTextNode(`${totalWithDiscount.toFixed(2)}€`)
+        const closeIcon = document.createTextNode(`x`)
+        
+        const closeID = `close` + i
+        closeElement.setAttribute("id", closeID)
+        
+        
 
         tableHeader.setAttribute("scope", "row");
 
         tableHeader.appendChild(productText)
-        productElement.appendChild(priceText)
-        priceElement.appendChild(quantityText)
-        quantityElement.appendChild(totalText)
+        priceElement.appendChild(priceText)
+        quantityElement.appendChild(quantityText)
+        totalElement.appendChild(totalText)
+        closeElement.appendChild(closeIcon)
 
         tableRow.appendChild(tableHeader)
-        tableRow.appendChild(productElement)
         tableRow.appendChild(priceElement)
         tableRow.appendChild(quantityElement)
         tableRow.appendChild(totalElement)
+        tableRow.appendChild(closeElement)
 
         tableBody.appendChild(tableRow)
 
         totalCartPrice += totalWithDiscount
+
+        let closeEvent = document.getElementById(closeID)
+        closeEvent.addEventListener('click', function(){
+            removeFromCart(cart[i].id)
+            printCart()
+        })
 
     }
 
@@ -261,17 +274,8 @@ function removeFromCart(id) {
     
     const productIndex = cart.findIndex(product => product.id === id)
 
-    if (productIndex !== -1) {
-        
-        if (cart[productIndex].quantity > 1) {
-            cart[productIndex].quantity--
-        
-        } else {
-            cart.splice(productIndex, 1)
-        }
-    
-    } else {
-        console.log('Product not found')
+    if (productIndex !== -1) {    
+        cart.splice(productIndex, 1)
     }
 }
 
