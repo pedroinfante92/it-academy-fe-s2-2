@@ -4511,13 +4511,16 @@ textarea.form-control-lg {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
+  box-shadow: 3px 3px 10px rgb(0 0 0 / 0.2);
 }
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -4607,13 +4610,15 @@ textarea.form-control-lg {
 .card-img,
 .card-img-top,
 .card-img-bottom {
-  width: 100%;
+  width: 90%;
+  padding-top: 1rem
 }
 
 .card-img,
 .card-img-top {
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
+  
 }
 
 .card-img,

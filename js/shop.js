@@ -169,31 +169,26 @@ function calculateTotal() {
 
 
 // Exercise 4
-function applyPromotionsCart() {
-    let oilDiscount = 0
-    let cakeDiscount = 0
 
-    // Apply promotions to each item in the array "cart"
+function applyPromotionsCart() {
+
+    let discountOil = 0
+    let discountCake = 0
+    
     for(let i = 0; i < cart.length; i++) {
         
         if(cart[i].id == 1 && cart[i].quantity >= 3) {
-            oilDiscount += cart[i].price * 0.2 * cart[i].quantity
+            discountOil = cart[i].price * cart[i].offer.percent / 100  * cart[i].quantity
             
         }
         
         if(cart[i].id == 3 && cart[i].quantity >= 10) {
-            cakeDiscount += cart[i].price * 0.3 * cart[i].quantity
+            discountCake = cart[i].price * cart[i].offer.percent / 100  * cart[i].quantity
         }   
     }
-
-    let totalDiscount = oilDiscount + cakeDiscount
-    let subtotalWithDiscount = total - totalDiscount
-
-    console.log(`Total Discount: ${totalDiscount}`)
-    console.log(`Subtotal with Discount: ${subtotalWithDiscount}`)
-
-    return totalDiscount
-
+    console.log(discountOil)
+    console.log(discountCake)
+    return [discountOil.toFixed(2), discountCake.toFixed(2)]
 }
 
 // Exercise 5
@@ -203,7 +198,6 @@ function printCart() {
     const tableBody = document.getElementById('cart_list')
     const totalPrice = document.getElementById('total_price')
     const discount = applyPromotionsCart()
-
 
     let totalCartPrice = 0
     
@@ -216,7 +210,15 @@ function printCart() {
         const product = cart[i].name
         const price = cart[i].price
         const quantity = cart[i].quantity
-        const totalWithDiscount = cart[i].price * cart[i].quantity - discount
+        let totalWithDiscount = price * quantity
+
+        if(cart[i].id == 1) {
+            totalWithDiscount = price * quantity - discount[0]
+        }
+
+        if(cart[i].id == 3) {
+            totalWithDiscount = price * quantity - discount[1]
+        }
         
         const tableRow = document.createElement("tr")
         const tableHeader = document.createElement("th")
@@ -269,15 +271,26 @@ function printCart() {
 
 // ** Nivell II **
 
-// Exercise 7
 function removeFromCart(id) {
-    
-    const productIndex = cart.findIndex(product => product.id === id)
+ 
+     const productIndex = cart.findIndex(product => product.id === id)
+ 
+     if (productIndex !== -1) {
+ 
+         if (cart[productIndex].quantity > 1) {
+             cart[productIndex].quantity--
+ 
+         } else {
+             cart.splice(productIndex, 1)
+         }
+ 
+     } else {
+         console.log('Product not found')
+     }
 
-    if (productIndex !== -1) {    
-        cart.splice(productIndex, 1)
-    }
-}
+     uploadCounter()
+
+ }
 
 function open_modal() {
     printCart()
